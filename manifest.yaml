@@ -1,6 +1,6 @@
 image: mw7101/mongodb-install-arm:latest
 manifests:
-  - image: mw7101/mongodb-install-arm:latest
+  - image: mw7101/mongodb-install-arm:latest-amd64
     platform:
       architecture: amd64
       os: linux
