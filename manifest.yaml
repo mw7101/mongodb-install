@@ -1,0 +1,7 @@
+image: mw7101/mongodb-install-arm:latest
+manifests:
+  - image: mw7101/mongodb-install-arm:latest
+    platform:
+      architecture: arm
+      os: linux
+      variant: v7
