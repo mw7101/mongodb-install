@@ -2,9 +2,12 @@ FROM golang:latest AS builder
 WORKDIR /go/src/github.com/mw7101/mongodb-install-arm/
 RUN go get -d -v k8s.io/apimachinery/pkg/util/sets
 COPY peer-finder.go .
-RUN CGO_ENABLED=0 go build -a -installsuffix cgo -o peer-finder .
+RUN CGO_ENABLED=0 GOARCH=arm GOARM=7 go build -a -installsuffix cgo -o peer-finder .
+ENV QEMU_URL https://github.com/balena-io/qemu/releases/download/v4.0.0%2Bbalena2/qemu-4.0.0.balena2-arm.tar.gz
+RUN apk add curl && curl -L ${QEMU_URL} | tar zxvf - -C . --strip-components 1
 
-FROM alpine:latest
+FROM arm32v7/alpine:latest
+COPY --from=builder qemu-arm-static /usr/bin
 RUN apk --no-cache add ca-certificates wget bash bind-tools
 COPY --from=builder /go/src/github.com/mw7101/mongodb-install-arm/peer-finder .
 COPY install.sh .
