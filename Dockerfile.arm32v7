@@ -4,7 +4,7 @@ RUN go get -d -v k8s.io/apimachinery/pkg/util/sets
 COPY peer-finder.go .
 RUN CGO_ENABLED=0 GOARCH=arm GOARM=7 go build -a -installsuffix cgo -o peer-finder .
 ENV QEMU_URL https://github.com/balena-io/qemu/releases/download/v4.0.0%2Bbalena2/qemu-4.0.0.balena2-arm.tar.gz
-RUN apk add curl && curl -L ${QEMU_URL} | tar zxvf - -C . --strip-components 1
+RUN apt-get update && apt-get install curl curl && curl -L ${QEMU_URL} | tar zxvf - -C . --strip-components 1
 
 FROM arm32v7/alpine:latest
 COPY --from=builder qemu-arm-static /usr/bin
