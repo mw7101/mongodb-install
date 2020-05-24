@@ -4,6 +4,7 @@ manifests:
     platform:
       architecture: amd64
       os: linux
+      variant: alpine
   - image: mw7101/mongodb-install-arm:latest-arm32v7
     platform:
       architecture: arm
