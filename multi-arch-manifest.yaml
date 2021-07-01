@@ -9,4 +9,4 @@ manifests:
     platform:
       architecture: arm
       os: linux
-      variant: v7-alpine
+      variant: v7
